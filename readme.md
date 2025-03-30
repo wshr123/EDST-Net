@@ -37,10 +37,10 @@
     python run_net.py --cfg your/file_path/edst.yaml
 
 ## 4. Train
-  You can modify TRAIN.ENABLE to 'True' and directly run `run_net.py` file for the training process.
+  You can modify TRAIN.ENABLE to 'True' and directly run `run_net.py --cfg your/file_path/edst.yaml` file for the training process.
   
 ## 5. Test
-  You can modify TEST.ENABLE to 'True' and directly run `run_net.py` file for the training process. Please refer to [3.Inference Demo with Pretrained Model](#3) to download a series of EDST-Net models.
+  You can modify TEST.ENABLE to 'True' and directly run `run_net.py --cfg your/file_path/edst.yaml` file for the training process. Please refer to [3.Inference Demo with Pretrained Model](#3) to download a series of EDST-Net models.
 
 ## 6. References
 Our project is conducted based on the following public paper with code:
