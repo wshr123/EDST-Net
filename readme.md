@@ -13,10 +13,11 @@
   You may follow the instructions in [DATASET.md](DATASET.md) to prepare the ava format datasets.
 ### Model preparation
   We pretrain the LW DETR on the CVB dataset. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_LWDETR in config file to you lw detr file path.
+  [lwdetr](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing)
+  Or you can train you own pretrain LW DETR model following the link [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
 
   We use Kinetics 400 pretrain weight for our temporal. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_FILE_PATH in config file to you temporal backbone file path.
-[temporal backbone]()
-  Or you can train you own pretrain LW DETR model following the link [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
+[temporal backbone](https://dl.fbaipublicfiles.com/pyslowfast/x3d_models/x3d_l.pyth)
 
 ## 3.Inference Demo with Pretrained Model
   We’ve provided demo for visualizing the customized input videos using pretrained weights.
