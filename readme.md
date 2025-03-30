@@ -48,3 +48,10 @@ Our project is conducted based on the following public paper with code:
 - [SLOWFAST](https://github.com/facebookresearch/SlowFast)
 - [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
 
+## 7. Citation
+
+If you find this code useful in your research, please kindly consider citing our paper:
+
+```bibtex
+
+```
