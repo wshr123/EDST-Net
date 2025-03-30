@@ -14,8 +14,8 @@
 ### Model preparation
   We pretrain the LW DETR on the CVB dataset. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_LWDETR in config file to you lw detr file path.
 
-  We use Kinetics 400 pretrain weight for our temporal. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_FILE_PATH in config file to you lw detr file path.
-
+  We use Kinetics 400 pretrain weight for our temporal. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_FILE_PATH in config file to you temporal backbone file path.
+[temporal backbone]()
   Or you can train you own pretrain LW DETR model following the link [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
 
 ## 3.Inference Demo with Pretrained Model
@@ -23,13 +23,14 @@
 
   For visualizing demos:
 
-  1. Download the pretrained weights from the link on the page above.
+  1. Download the pretrained weights from the link above.
+     [EDST-Net](https://drive.google.com/file/d/16MXBZ_0bQvNuvB7myYq0dmB6rstEvXUv/view?usp=sharing)
   
-  2. Set DEMO.ENABLE to 'True' and set TRAIN.ENABLE, TEST.ENABLE to 'False'.
+  3. Set DEMO.ENABLE to 'True' and set TRAIN.ENABLE, TEST.ENABLE to 'False'.
   
-  3. Modify LABEL_FILE_PATH,INPUT_VIDEO and OUTPUT_FILE as your own label path.
+  4. Modify LABEL_FILE_PATH,INPUT_VIDEO and OUTPUT_FILE as your own label path.
   
-  4. Using the provided run_net.py to demo the input videos. Run it as:
+  5. Using the provided run_net.py to demo the input videos. Run it as:
   
     python run_net.py --cfg your/file_path/edst.yaml
 
