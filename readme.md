@@ -1,7 +1,7 @@
 # EDST-Net
   Source code of _"EDST-Net： An Efficient Dual-Stream Parallel Framework for Spatio-Temporal Action Detection of Multi Cattle Behaviors"_
 <p align="center">
-  <img src="all_model.png" alt="EDST-Net Architecturee" width="300">
+  <img src="all-model.png" alt="EDST-Net Architecturee" width="300">
 </p>
 
 ## 1.Installiation
