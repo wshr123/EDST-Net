@@ -26,7 +26,7 @@
   For visualizing demos:
 
   1. Download the pretrained weights from the link above.
-     [EDST-Net](https://drive.google.com/file/d/16MXBZ_0bQvNuvB7myYq0dmB6rstEvXUv/view?usp=sharing)
+     [EDST-Net](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
   
   3. Set DEMO.ENABLE to 'True' and set TRAIN.ENABLE, TEST.ENABLE to 'False'.
   
