@@ -17,7 +17,7 @@
   
   Or you can train you own pretrain LW DETR model following the link [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
 
-  We use Kinetics 400 pretrain weight for our temporal. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_FILE_PATH in config file to you temporal backbone file path.
+  We use Kinetics 400 pretrain weight for our temporal backbone. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_FILE_PATH in config file to you temporal backbone file path.
 [temporal backbone](https://dl.fbaipublicfiles.com/pyslowfast/x3d_models/x3d_l.pyth)
 
 ## 3.Inference Demo with Pretrained Model
@@ -30,7 +30,7 @@
   
   3. Set DEMO.ENABLE to 'True' and set TRAIN.ENABLE, TEST.ENABLE to 'False'.
   
-  4. Modify LABEL_FILE_PATH,INPUT_VIDEO and OUTPUT_FILE as your own label path.
+  4. Modify LABEL_FILE_PATH, INPUT_VIDEO and OUTPUT_FILE as your own label path.
   
   5. Using the provided run_net.py to demo the input videos. Run it as:
   
