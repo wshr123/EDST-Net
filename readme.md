@@ -17,7 +17,7 @@
   And follow this STEP BY STEP introduction to build annotations match our model.
   As an alternative, you can directily download our annotations.
   todo: the introduction is being update, it will finist before Oct.7
-  
+  todo: upload cvb and cvb-i annotations
   ============******************==============
   
 ### Model preparation
