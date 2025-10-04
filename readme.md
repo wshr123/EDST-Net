@@ -13,9 +13,11 @@
   You may follow the instructions in [DATASET.md](DATASET.md) to prepare the ava format datasets.
   
   ============******************==============
+  
   And follow this STEP BY STEP introduction to build annotations match our model.
   As an alternative, you can directily download our annotations.
   todo: the introduction is being update, it will finist before Oct.7
+  
   ============******************==============
   
 ### Model preparation
