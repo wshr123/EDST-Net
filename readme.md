@@ -11,6 +11,12 @@
 
 ### Data preparation
   You may follow the instructions in [DATASET.md](DATASET.md) to prepare the ava format datasets.
+  ============******************==============
+  And follow this STEP BY STEP introduction to build annotations match our model.
+  As an alternative, you can directily download our annotations.
+  todo: the introduction is being update, it will finist before Oct.7
+  ============******************==============
+  
 ### Model preparation
   We pretrain the LW DETR on the CVB dataset. Please refer to the following link to download the pretrained models and put them into weights/. Then modify CHECKPOINT_LWDETR in config file to you lw detr file path
   [lwdetr](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing).
