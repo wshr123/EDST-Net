@@ -72,7 +72,7 @@ Select several videos from videos_with_action_12.txt to move into the test set.
 
 Remove those videos from the original training file.
 
-Save the result as ava_train_set_modified.csv.
+Save the result as new ava_train_set.csv.
 
 ⚠️ This step must be done before any dataset split.
 
