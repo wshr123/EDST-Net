@@ -28,7 +28,7 @@ Step	Task	Description
 
 5	Generate video-name lists	For COCO conversion scripts
 
-6	Convert to COCO format ompatible with model input format
+6	Convert to COCO format compatible with model input format
 
 7	Update model config	Link dataset paths and modes
 
