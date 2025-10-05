@@ -164,23 +164,18 @@ Outputs:
 
 ava_train_set_min.json
 
-ava_train_se.json
+ava_train_set.json
+
+and then modify ava_train_set.json to instances_train2017.json
 
 # Training annotations
 python utils/dataset_transform_tools/csv2coco.py \
-  --csv_path path/to/new_train_set.csv \
+  --csv_path path/to/ava_train_set.csv \
   --movie_list path/to/ava_file_names_train.txt \
   --img_root path/to/frames_directory \
-  --json_path path/to/train.json \
-  --min_json_path path/to/train_min.json
+  --json_path path/to/ava_train_set.json \
+  --min_json_path path/to/ava_train_set_min.json
 
-# Testing annotations
-python utils/dataset_transform_tools/csv2coco.py \
-  --csv_path path/to/ava_val_set.csv \
-  --movie_list path/to/ava_file_names_test.txt \
-  --img_root path/to/frames_directory \
-  --json_path path/to/test.json \
-  --min_json_path path/to/test_min.json
 
 7️⃣ Update Model Configuration
 
@@ -200,27 +195,21 @@ PATHS = {
 root = Path("/absolute/path/to/your/dataset_root")
 
 ⚙️ Model Training and Evaluation Configuration
-if training_from_scratch:  # Use X3D-L pretrained weights
-    checkpoint["model_state"] = {
-        "temporal_backbone." + k: v 
-        for k, v in checkpoint["model_state"].items()
-    }
-else:  # For testing or inference
-    # Comment out the code above
+    if you Training from scratch	Enable prefix addition (X3D-L initialization): 
+  
+    you need to delete:  
+    checkpoint["model_state"] = {"temporal_backbone." + k: v for k, v in checkpoint["model_state"].items()}
 
-Scenario	Action
-✅ Training from scratch	Enable prefix addition (X3D-L initialization)
-❌ Testing or inference	Disable prefix addition (load complete EDST-Net directly)
-🩹 Troubleshooting
-1️⃣ Category 12 Handling Not Working
+    in core/utils/checkpoint line 290
 
-Ensure the Category 12 processing step is completed before dataset splitting.
+    if you Testing or inference	Disable prefix addition (load complete EDST-Net directly):
 
-Verify videos_with_action_12.txt videos were correctly moved to the test set.
+    you need to add :
+    checkpoint["model_state"] = {"temporal_backbone." + k: v for k, v in checkpoint["model_state"].items()}
 
-Re-generate the test JSON file.
 
-2️⃣ Path Configuration Errors
+
+1、 Path Configuration Errors
 
 Error: FileNotFoundError or empty dataset.
 
@@ -229,26 +218,11 @@ PATHS = {
 }
 root = Path("/actual/dataset/root")
 
-3️⃣ Import Errors (Missing PyTorchVideo)
+2、 Import Errors (Missing PyTorchVideo)
 git clone https://github.com/facebookresearch/pytorchvideo.git
 cd pytorchvideo
 pip install -e .
 
-📂 File Structure Overview
-File / Folder	Purpose
-frames_directory/	Root folder containing all video frames
-*_min.json	Minimal COCO annotation files
-ava_file_names_*.txt	Video-name index lists
-*_frame.csv	Frame-path lists for training
-ava_test_predit_boxes.csv	Pre-computed detection boxes
-utils/dataset_transform_tools/	Contains all preprocessing scripts
-💡 Best Practices
 
-✅ Always use absolute paths
-
-✅ Keep directory structures consistent
-
-✅ Follow the correct order:
-fill frames → handle Category 12 → split → generate files → train
 
 
