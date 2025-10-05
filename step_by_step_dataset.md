@@ -13,17 +13,29 @@ utils/dataset_transform_tools/
 Example structure:
 
 ├── core/
+
 │   ├── dataset/
+
 │   │   └── coco.py
+
 │   └── ...
+
 ├── utils/
+
 │   └── dataset_transform_tools/
+
 │       ├── fill_imgs.py
+
 │       ├── share_class12_to_val.py
+
 │       ├── split_train_val.py
+
 │       ├── create_predict_boxes_list.py
+
 │       ├── create_frame_list.py
+
 │       ├── get_video_names.py
+
 │       └── csv2coco.py
 
 🚀 Overview of the Optimized Pipeline
