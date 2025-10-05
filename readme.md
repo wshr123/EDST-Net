@@ -57,7 +57,7 @@ As an alternative, you can directly download our prepared annotations (links wil
 ✅ CVB and CVB-I annotation files will be uploaded to this repository
 ============================================
 
-### 🧠 Model Preparation
+#### 🧠 Model Preparation
 
 We pretrain the **LW-DETR** on the CVB dataset.  
 Please download the pretrained weights and place them in the `weights/` folder.
