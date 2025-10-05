@@ -1,6 +1,6 @@
 CVB Dataset for EDST-Net Processing and Model Training Guide
 
-This repository provides a step-by-step workflow for processing the CVB dataset and training models, with special handling for Category 12 (rare class) to ensure that both validation and test sets contain sufficient samples.
+This repository provides a step-by-step workflow for processing the CVB dataset and training models
 The optimized pipeline improves dataset balance and model generalization.
 
 📁 Repository Structure
