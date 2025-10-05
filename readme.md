@@ -11,7 +11,7 @@ Source code of
 
 Notice:
 
-we have update Preparation 
+we have update Preparation in Oct.3
 
 ## 📋 Table of Contents
 1. [Installation](#1-installation)
