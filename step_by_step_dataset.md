@@ -10,12 +10,6 @@ All data processing scripts are located in:
 utils/dataset_transform_tools/
 
 
-Example structure:
-core/dataset/ coco.py
-
-utils/dataset_transform_tools/
-
-
 🚀 Overview of the Optimized Pipeline
 
 Processing order optimized: Fill frame gaps → Handle Category 12 distribution → Split train/val sets → Generate annotations → Train models.
