@@ -56,3 +56,99 @@ As an alternative, you can directly download our prepared annotations (links wil
 ✅ The full step-by-step introduction will be available before **Oct. 7**
 ✅ CVB and CVB-I annotation files will be uploaded to this repository
 ============================================
+
+🧠 Model Preparation
+
+We pretrain the LW-DETR on the CVB dataset.
+Please download the pretrained weights and place them in the weights/ folder.
+
+🔗 LW-DETR Pretrained Model
+
+Then modify the configuration file:
+
+CHECKPOINT_LWDETR: "path/to/your/lw_detr_checkpoint.pth"
+
+
+If you prefer to train LW-DETR yourself, refer to the official repo:
+👉 LW-DETR GitHub Repository
+
+We use Kinetics-400 pretrained weights for our temporal backbone.
+Please download and place them in weights/:
+
+🔗 Temporal Backbone (X3D-L)
+
+Then update in your config file:
+
+CHECKPOINT_FILE_PATH: "path/to/your/x3d_l.pyth"
+
+3️⃣ Inference Demo with Pretrained Model
+
+We provide an inference demo for visualizing custom input videos using pretrained weights.
+
+▶️ Steps:
+
+Download pretrained weights:
+EDST-Net Pretrained Models
+
+Set the config flags:
+
+DEMO.ENABLE: True
+TRAIN.ENABLE: False
+TEST.ENABLE: False
+
+
+Modify paths in config:
+
+LABEL_FILE_PATH: "path/to/label.json"
+INPUT_VIDEO: "path/to/your_video.mp4"
+OUTPUT_FILE: "path/to/output_demo.mp4"
+
+
+Run the demo:
+
+python run_net.py --cfg your/file_path/edst.yaml
+
+4️⃣ Train
+
+To start training from scratch, enable training in your config file:
+
+TRAIN.ENABLE: True
+
+
+Then run:
+
+python run_net.py --cfg your/file_path/edst.yaml
+
+5️⃣ Test
+
+To evaluate or test the model:
+
+TEST.ENABLE: True
+
+
+Then run:
+
+python run_net.py --cfg your/file_path/edst.yaml
+
+
+For pretrained checkpoints, please refer to
+👉 Inference Demo with Pretrained Model
+
+6️⃣ References
+
+Our work builds upon the following open-source projects:
+
+SLOWFAST
+
+LW-DETR
+
+7️⃣ Citation
+
+If you find this work useful in your research, please kindly consider citing our paper:
+
+@article{zhong2025edstnet,
+  title={EDST-Net: An Efficient Dual-Stream Parallel Framework for Spatio-Temporal Action Detection of Multi-Cattle Behaviors},
+  author={Zhong, Huiyu and Su, Daobilige and Qiao, Yongliang and Yang, Zhe and Wang, Xuechang and Wang, Qingjie and Zhang, Xinyue},
+  journal={Under Review},
+  year={2025}
+}
