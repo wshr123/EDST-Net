@@ -41,6 +41,8 @@ to prepare the **AVA-format datasets** used for training and evaluation.
 
 #### 📦 Step-by-Step Dataset Annotation Pipeline
 
+👉 [STEP_.md](DATASET.md)  
+
 > 🛠️ This section provides a detailed guide for building annotations matching the EDST-Net input format.
 
 As an alternative, you can directly download our prepared annotations (links will be available soon).
