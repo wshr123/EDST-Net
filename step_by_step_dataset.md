@@ -1,6 +1,6 @@
-AVA Dataset Processing and Model Training Guide
+CVB Dataset for EDST-Net Processing and Model Training Guide
 
-This repository provides a step-by-step workflow for processing the AVA dataset and training models, with special handling for Category 12 (rare class) to ensure that both validation and test sets contain sufficient samples.
+This repository provides a step-by-step workflow for processing the CVB dataset and training models, with special handling for Category 12 (rare class) to ensure that both validation and test sets contain sufficient samples.
 The optimized pipeline improves dataset balance and model generalization.
 
 📁 Repository Structure
@@ -27,19 +27,19 @@ Example structure:
 │       └── csv2coco.py
 
 🚀 Overview of the Optimized Pipeline
-Key Improvement
 
 Processing order optimized: Fill frame gaps → Handle Category 12 distribution → Split train/val sets → Generate annotations → Train models.
 
 Step	Task	Description
-0	Fill missing frames	Ensure each video folder has ≥ 450 frames
+0	Fill missing frames	Ensure each video folder has 450 frames
 1	Handle Category 12 imbalance	Guarantee samples appear in validation/test sets
-2	Split train/val sets	Create balanced training and validation splits
+2	Split val set from train set.	Create balanced training and validation splits
 3	Generate prediction-box list	For evaluation and testing
 4	Generate frame-level lists	Build frame index files for training
 5	Generate video-name lists	For COCO conversion scripts
-6	Convert to COCO format	Compatible with model input format
+6	Convert to COCO format ompatible with model input format
 7	Update model config	Link dataset paths and modes
+
 🧩 Detailed Workflow
 0️⃣ Fill Missing Frames Using fill_imgs.py
 
