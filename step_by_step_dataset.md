@@ -262,11 +262,4 @@ utils/dataset_transform_tools/	Contains all preprocessing scripts
 ✅ Follow the correct order:
 fill frames → handle Category 12 → split → generate files → train
 
-👥 Maintainer
 
-Maintainer: [Your Name]
-
-Institution: [Your Lab / Organization]
-
-Contact: [your.email@example.com
-]
