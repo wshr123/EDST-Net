@@ -16,8 +16,7 @@ We have updated **Preparation** on **Oct. 3** 🛠️
 
 ## 📋 Table of Contents
 1. [Installation](#1-installation)
-2. [Preparation](#2-preparation)
-   - [Data Preparation](#data-preparation)
+2. [Data Preparation](#2-preparation)
 3. [Model Preparation](#3-model-preparation)
 4. [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
 5. [Training](#5-train)
@@ -34,7 +33,7 @@ Please find installation instructions for PyTorch and EDST-Net in
 
 ---
 
-## 2️⃣ Preparation
+## 2️⃣ Data Preparation
 
 ### 🧩 Data Preparation
 
