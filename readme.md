@@ -9,20 +9,21 @@ Source code of
 
 ---
 
-Notice:
+**Notice:**  
+We have updated **Preparation** on **Oct. 3** 🛠️
 
-we have update Preparation in Oct.3
+---
 
 ## 📋 Table of Contents
 1. [Installation](#1-installation)
 2. [Preparation](#2-preparation)
    - [Data Preparation](#data-preparation)
-   - [Model Preparation](#model-preparation)
-3. [Inference Demo with Pretrained Model](#3-inference-demo-with-pretrained-model)
-4. [Training](#4-train)
-5. [Testing](#5-test)
-6. [References](#6-references)
-7. [Citation](#7-citation)
+   - [Model Preparation](#3-model-preparation)
+3. [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
+4. [Training](#5-train)
+5. [Testing](#6-test)
+6. [References](#7-references)
+7. [Citation](#8-citation)
 
 ---
 
@@ -45,7 +46,7 @@ to prepare the **AVA-format datasets** used for training and evaluation.
 
 #### 📦 Step-by-Step Dataset Annotation Pipeline
 
-👉 [step_by_step_dataset.md](step_by_step_dataset.md)  
+👉 [step_by_step_dataset.md](step_by_step_dataset.md)
 
 > 🛠️ This section provides a detailed guide for building annotations matching the EDST-Net input format.
 
@@ -56,6 +57,9 @@ As an alternative, you can directly download our prepared annotations (links wil
 ✅ The full step-by-step introduction will be available before **Oct. 7**
 ✅ CVB and CVB-I annotation files will be uploaded to this repository
 ============================================
+```
+
+---
 
 ## 3️⃣ Model Preparation
 
@@ -185,4 +189,3 @@ If you find this work useful in your research, please kindly consider citing our
   ⭐ Star this repo if you find it helpful!  
   🐄 Contributions and issues are always welcome.
 </p>
-
