@@ -57,98 +57,131 @@ As an alternative, you can directly download our prepared annotations (links wil
 ✅ CVB and CVB-I annotation files will be uploaded to this repository
 ============================================
 
-🧠 Model Preparation
+### 🧠 Model Preparation
 
-We pretrain the LW-DETR on the CVB dataset.
-Please download the pretrained weights and place them in the weights/ folder.
+We pretrain the **LW-DETR** on the CVB dataset.  
+Please download the pretrained weights and place them in the `weights/` folder.
 
-🔗 LW-DETR Pretrained Model
+🔗 [LW-DETR Pretrained Model](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing)
 
 Then modify the configuration file:
 
+```yaml
 CHECKPOINT_LWDETR: "path/to/your/lw_detr_checkpoint.pth"
+```
 
+If you prefer to train LW-DETR yourself, refer to the official repo:  
+👉 [LW-DETR GitHub Repository](https://github.com/Atten4Vis/LW-DETR)
 
-If you prefer to train LW-DETR yourself, refer to the official repo:
-👉 LW-DETR GitHub Repository
+---
 
-We use Kinetics-400 pretrained weights for our temporal backbone.
-Please download and place them in weights/:
+We use **Kinetics-400 pretrained weights** for our temporal backbone.  
+Please download and place them in `weights/`:
 
-🔗 Temporal Backbone (X3D-L)
+🔗 [Temporal Backbone (X3D-L)](https://dl.fbaipublicfiles.com/pyslowfast/x3d_models/x3d_l.pyth)
 
 Then update in your config file:
 
+```yaml
 CHECKPOINT_FILE_PATH: "path/to/your/x3d_l.pyth"
+```
 
-3️⃣ Inference Demo with Pretrained Model
+---
 
-We provide an inference demo for visualizing custom input videos using pretrained weights.
+## 3️⃣ Inference Demo with Pretrained Model
 
-▶️ Steps:
+We provide an **inference demo** for visualizing custom input videos using pretrained weights.
 
-Download pretrained weights:
-EDST-Net Pretrained Models
+### ▶️ Steps:
 
-Set the config flags:
+1. **Download pretrained weights:**  
+   [EDST-Net Pretrained Models](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
 
-DEMO.ENABLE: True
-TRAIN.ENABLE: False
-TEST.ENABLE: False
+2. **Set the config flags:**
+   ```yaml
+   DEMO.ENABLE: True
+   TRAIN.ENABLE: False
+   TEST.ENABLE: False
+   ```
 
+3. **Modify paths in config:**
+   ```yaml
+   LABEL_FILE_PATH: "path/to/label.json"
+   INPUT_VIDEO: "path/to/your_video.mp4"
+   OUTPUT_FILE: "path/to/output_demo.mp4"
+   ```
 
-Modify paths in config:
+4. **Run the demo:**
+   ```bash
+   python run_net.py --cfg your/file_path/edst.yaml
+   ```
 
-LABEL_FILE_PATH: "path/to/label.json"
-INPUT_VIDEO: "path/to/your_video.mp4"
-OUTPUT_FILE: "path/to/output_demo.mp4"
+The model will output a visualization video with bounding boxes and action labels for each detected cattle behavior.
 
+---
 
-Run the demo:
-
-python run_net.py --cfg your/file_path/edst.yaml
-
-4️⃣ Train
+## 4️⃣ Train
 
 To start training from scratch, enable training in your config file:
 
+```yaml
 TRAIN.ENABLE: True
-
+```
 
 Then run:
 
+```bash
 python run_net.py --cfg your/file_path/edst.yaml
+```
 
-5️⃣ Test
+> 💡 You can modify batch size, learning rate, and training epochs in the YAML config file as needed.
+
+---
+
+## 5️⃣ Test
 
 To evaluate or test the model:
 
+```yaml
 TEST.ENABLE: True
-
+```
 
 Then run:
 
+```bash
 python run_net.py --cfg your/file_path/edst.yaml
+```
 
+For pretrained checkpoints, please refer to  
+👉 [Inference Demo with Pretrained Model](#3-inference-demo-with-pretrained-model)
 
-For pretrained checkpoints, please refer to
-👉 Inference Demo with Pretrained Model
+---
 
-6️⃣ References
+## 6️⃣ References
 
 Our work builds upon the following open-source projects:
 
-SLOWFAST
+- [SLOWFAST](https://github.com/facebookresearch/SlowFast)
+- [LW-DETR](https://github.com/Atten4Vis/LW-DETR)
 
-LW-DETR
+---
 
-7️⃣ Citation
+## 7️⃣ Citation
 
 If you find this work useful in your research, please kindly consider citing our paper:
 
+```bibtex
 @article{zhong2025edstnet,
   title={EDST-Net: An Efficient Dual-Stream Parallel Framework for Spatio-Temporal Action Detection of Multi-Cattle Behaviors},
   author={Zhong, Huiyu and Su, Daobilige and Qiao, Yongliang and Yang, Zhe and Wang, Xuechang and Wang, Qingjie and Zhang, Xinyue},
   journal={Under Review},
   year={2025}
 }
+```
+
+---
+
+<p align="center">
+  ⭐ Star this repo if you find it helpful!  
+  🐄 Contributions and issues are always welcome.
+</p>
