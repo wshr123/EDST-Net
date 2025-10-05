@@ -57,7 +57,7 @@ As an alternative, you can directly download our prepared annotations (links wil
 ✅ CVB and CVB-I annotation files will be uploaded to this repository
 ============================================
 
-#### 🧠 Model Preparation
+## 3️⃣ Model Preparation
 
 We pretrain the **LW-DETR** on the CVB dataset.  
 Please download the pretrained weights and place them in the `weights/` folder.
@@ -88,7 +88,7 @@ CHECKPOINT_FILE_PATH: "path/to/your/x3d_l.pyth"
 
 ---
 
-## 3️⃣ Inference Demo with Pretrained Model
+## 4️⃣ Inference Demo with Pretrained Model
 
 We provide an **inference demo** for visualizing custom input videos using pretrained weights.
 
@@ -120,7 +120,7 @@ The model will output a visualization video with bounding boxes and action label
 
 ---
 
-## 4️⃣ Train
+## 5️⃣ Train
 
 To start training from scratch, enable training in your config file:
 
@@ -138,7 +138,7 @@ python run_net.py --cfg your/file_path/edst.yaml
 
 ---
 
-## 5️⃣ Test
+## 6️⃣ Test
 
 To evaluate or test the model:
 
@@ -153,11 +153,11 @@ python run_net.py --cfg your/file_path/edst.yaml
 ```
 
 For pretrained checkpoints, please refer to  
-👉 [Inference Demo with Pretrained Model](#3-inference-demo-with-pretrained-model)
+👉 [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
 
 ---
 
-## 6️⃣ References
+## 7️⃣ References
 
 Our work builds upon the following open-source projects:
 
@@ -166,7 +166,7 @@ Our work builds upon the following open-source projects:
 
 ---
 
-## 7️⃣ Citation
+## 8️⃣ Citation
 
 If you find this work useful in your research, please kindly consider citing our paper:
 
@@ -185,3 +185,4 @@ If you find this work useful in your research, please kindly consider citing our
   ⭐ Star this repo if you find it helpful!  
   🐄 Contributions and issues are always welcome.
 </p>
+
