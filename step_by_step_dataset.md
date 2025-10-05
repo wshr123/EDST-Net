@@ -33,6 +33,7 @@ Step	Task	Description
 7	Update model config	Link dataset paths and modes
 
 🧩 Detailed Workflow
+
 0️⃣ Fill Missing Frames Using fill_imgs.py
 
 Script: utils/dataset_transform_tools/fill_imgs.py
