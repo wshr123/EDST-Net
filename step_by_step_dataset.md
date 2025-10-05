@@ -91,7 +91,7 @@ python utils/dataset_transform_tools/split_train_val.py \
   --output_file_10_percent path/to/ava_val_set.csv \
   --output_file_remaining path/to/new_train_set.csv
 
-3️⃣ Generate Prediction-Box List (for Test Set)
+3️⃣ Generate Prediction-Box List 
 
 Script: utils/dataset_transform_tools/create_predict_boxes_list.py
 Input: ava_val_set.csv
@@ -156,19 +156,15 @@ python utils/dataset_transform_tools/get_video_names.py \
 Script: utils/dataset_transform_tools/csv2coco.py
 Inputs:
 
-new_train_set.csv
-
-ava_val_set.csv
+ava_train_set.csv
 
 ava_file_names_train.txt
 
-ava_file_names_test.txt
-
 Outputs:
 
-train_min.json
+ava_train_set_min.json
 
-test_min.json
+ava_train_se.json
 
 # Training annotations
 python utils/dataset_transform_tools/csv2coco.py \
