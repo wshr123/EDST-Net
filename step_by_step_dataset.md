@@ -11,9 +11,7 @@ utils/dataset_transform_tools/
 
 
 Example structure:
-
 ├── core/
-
 │   ├── dataset/
 
 │   │   └── coco.py
