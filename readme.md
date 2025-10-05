@@ -18,12 +18,12 @@ We have updated **Preparation** on **Oct. 3** 🛠️
 1. [Installation](#1-installation)
 2. [Preparation](#2-preparation)
    - [Data Preparation](#data-preparation)
-   - [Model Preparation](#3-model-preparation)
-3. [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
-4. [Training](#5-train)
-5. [Testing](#6-test)
-6. [References](#7-references)
-7. [Citation](#8-citation)
+3. [Model Preparation](#3-model-preparation)
+4. [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
+5. [Training](#5-train)
+6. [Testing](#6-test)
+7. [References](#7-references)
+8. [Citation](#8-citation)
 
 ---
 
