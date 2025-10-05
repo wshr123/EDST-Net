@@ -15,13 +15,21 @@ utils/dataset_transform_tools/
 Processing order optimized: Fill frame gaps → Handle Category 12 distribution → Split train/val sets → Generate annotations → Train models.
 
 Step	Task	Description
+
 0	Fill missing frames	Ensure each video folder has 450 frames
+
 1	Handle Category 12 imbalance	Guarantee samples appear in validation/test sets
+
 2	Split val set from train set.	Create balanced training and validation splits
+
 3	Generate prediction-box list	For evaluation and testing
+
 4	Generate frame-level lists	Build frame index files for training
+
 5	Generate video-name lists	For COCO conversion scripts
+
 6	Convert to COCO format ompatible with model input format
+
 7	Update model config	Link dataset paths and modes
 
 🧩 Detailed Workflow
