@@ -1,0 +1,109 @@
+TRAIN:
+  ENABLE: False # default True
+  DATASET: ava
+  BATCH_SIZE: 2
+  EVAL_PERIOD: 1
+  CHECKPOINT_PERIOD: 1
+  AUTO_RESUME: False
+  CHECKPOINT_FILE_PATH: '/media/zhong/1.0T/zhong_work/SlowFast/weights/x3d_l.pyth'
+#  CHECKPOINT_FILE_PATH: "/media/zhong/1.0T/zhong_work/zhong_detr/checkpoints/x3d_L_fuse3,4,5,d_192,ref_points16,2,8,4_72.2/EDST_Net.pyth"
+#  CHECKPOINT_FILE_PATH: ""
+  CHECKPOINT_LWDETR: '/media/zhong/1.0T/CVPR24/LW-DETR/output/$model_name/lwdetr_cattle.pth'
+  CHECKPOINT_TYPE: pytorch
+X3D:
+  WIDTH_FACTOR: 2.0
+  DEPTH_FACTOR: 5.0
+  BOTTLENECK_FACTOR: 2.25
+  DIM_C5: 2048
+  DIM_C1: 12
+TEST:
+  ENABLE: True
+  DATASET: ava
+  BATCH_SIZE: 1
+  CHECKPOINT_FILE_PATH: "/media/zhong/1.0T/zhong_work/zhong_detr/checkpoints_new/edst_net_0.7669_with_pretrain/checkpoint_epoch_00034.pyth"
+#  CHECKPOINT_FILE_PATH: "/media/zhong/1.0T/zhong_work/zhong_detr/checkpoints_new/edst_net_without_checkpoint/checkpoint_epoch_00047.pyth"
+DEMO:
+  ENABLE: False
+  LABEL_FILE_PATH:  "/media/zhong/1.0T/zhong_work/SlowFast/demo/AVA/cattle.json"
+  INPUT_VIDEO:  "/media/zhong/ORICO/videoss/130.mp4"
+  OUTPUT_FILE: "/media/zhong/1.0T/zhong_work/zhong_detr/130.mp4"
+DATA:
+  NUM_FRAMES: 16
+  SAMPLING_RATE: 5
+  TRAIN_JITTER_SCALES: [356, 446]
+  TRAIN_CROP_SIZE: 312
+  TEST_CROP_SIZE: 360
+  INPUT_CHANNEL_NUM: [3]
+RESNET:
+  ZERO_INIT_FINAL_BN: True
+  TRANS_FUNC: x3d_transform
+  STRIDE_1X1: False
+BN:
+  USE_PRECISE_STATS: True
+  NUM_BATCHES_PRECISE: 200
+  WEIGHT_DECAY: 0.0
+#AVA:
+#  DETECTION_SCORE_THRESH: 0.2
+#  FRAME_DIR: '/media/zhong/1.0T/zhong_work/CVB/000058916v001/data/raw_frames'
+#  FRAME_LIST_DIR: '/media/zhong/1.0T/zhong_work/CVB/000058916v001/data/ava_v2.2'
+#  ANNOTATION_DIR: '/media/zhong/1.0T/zhong_work/CVB/000058916v001/data/ava_v2.2'
+#  LABEL_MAP_FILE: 'behaviour_list.pbtxt'
+#  GROUNDTRUTH_FILE: 'ava_test_set.csv'
+#  TRAIN_GT_BOX_LISTS: ['ava_train_set.csv']
+#  TRAIN_PREDICT_BOX_LISTS: [
+#    "ava_train_predit_boxes.csv",
+#    #"person_box_67091280_iou90/ava_detection_train_boxes_and_labels_include_negative_v2.2.csv",
+#  ]
+#  TEST_PREDICT_BOX_LISTS: ["ava_test_predit_boxes.csv"]
+#  TRAIN_LISTS : ["train.csv"]
+#  TEST_LISTS : ["test.csv"]
+#  FULL_TEST_ON_VAL: True
+AVA:
+  DETECTION_SCORE_THRESH: 0.2
+  FRAME_DIR: '/media/zhong/ORICO/cvb-i/rawframess'
+  FRAME_LIST_DIR: '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result'
+  ANNOTATION_DIR: '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result'
+  LABEL_MAP_FILE: 'behaviour_list.pbtxt'
+  GROUNDTRUTH_FILE: 'test.csv'
+  TRAIN_GT_BOX_LISTS: ['train.csv']
+  TRAIN_PREDICT_BOX_LISTS: [
+    "train.csv",
+    #"person_box_67091280_iou90/ava_detection_train_boxes_and_labels_include_negative_v2.2.csv",
+  ]
+  TEST_PREDICT_BOX_LISTS: ["test.csv"]
+  TRAIN_LISTS : ["train_frame.csv"]
+  TEST_LISTS : ["test_frame.csv"]
+  FULL_TEST_ON_VAL: True
+  COCO_PATH: "/media/zhong/1.0T/zhong_work/zhong_detr/inference_result"
+DETECTION:
+  ENABLE: True
+  ALIGNED: True
+  SPATIAL_SCALE_FACTOR: 32
+SOLVER:
+  BASE_LR: 0.02 # 1 machine default 0.02 shape
+  BASE_LR_SCALE_NUM_SHARDS: True
+  MAX_EPOCH: 50
+  LR_POLICY: cosine
+  WEIGHT_DECAY: 5e-5
+  WARMUP_EPOCHS: 3.0
+  WARMUP_START_LR: 0.0001
+  OPTIMIZING_METHOD: sgd
+MODEL:
+  NUM_CLASSES: 13
+  ARCH: x3d
+  MODEL_NAME: X3D
+  LOSS_FUNC: bce
+  DROPOUT_RATE: 0.5
+DATA_LOADER:
+  NUM_WORKERS: 8
+  PIN_MEMORY: True
+NUM_GPUS: 1
+RNG_SEED: 0
+OUTPUT_DIR: .
+#export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast:$PYTHONPATH
+#export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/slowfast:$PYTHONPATH
+#export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/Detectron2:$PYTHONPATH
+
+#checkpoint line 290
+#need to modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11)
+#modify core/dataset/coco.py line175 PATH  ; line 66 path root_dir
