@@ -10,6 +10,7 @@ from core.dataset import loader
 from core.utils.env import pathmgr
 from core.utils.meters import AVAMeter, TestMeter
 import core.visualization.tensorboard_vis as tb
+from debug_trian import CombinedDataset, combined_collate_fn
 import core.model.losses as losses
 import numpy as np
 import torch
@@ -27,13 +28,15 @@ from matplotlib import animation
 import os
 import numpy as np
 import torch.nn.functional as F
-from train_net import CombinedDataset, combined_collate_fn
 from core.utils.attn_visualization import *
 logger = logging.get_logger(__name__)
 
 
 @torch.no_grad()
 def perform_test(test_loader, model, test_meter, cfg, postprocess, writer=None):
+    y_true_all = []
+    y_prob_all = []
+
     model.eval()
     test_meter.iter_tic()
     total_time = 0.0
@@ -149,6 +152,15 @@ def perform_test(test_loader, model, test_meter, cfg, postprocess, writer=None):
             preds = preds.cpu()
             labels = labels.cpu()
             video_idx = video_idx.cpu()
+
+        if preds.min() < 0 or preds.max() > 1:
+            preds_sigmoid = torch.sigmoid(preds)
+        else:
+            preds_sigmoid = preds
+
+        y_prob_all.append(preds_sigmoid.reshape(-1, preds_sigmoid.shape[-1]).numpy())
+        y_true_all.append(labels.reshape(-1, labels.shape[-1]).numpy())
+
         try:
             test_meter.iter_toc()
         except:
@@ -174,6 +186,72 @@ def perform_test(test_loader, model, test_meter, cfg, postprocess, writer=None):
             logger.info("Successfully saved prediction results to {}".format(save_path))
     logger.info("Finish test in: {}".format(total_time))
     test_meter.finalize_metrics()
+
+    #==========================***************====================================
+    try:
+        import pandas as pd
+        from sklearn.metrics import precision_recall_fscore_support, accuracy_score
+
+        if len(y_true_all) > 0:
+            Y_true = np.concatenate(y_true_all, axis=0)
+            Y_prob = np.concatenate(y_prob_all, axis=0)
+
+            thr = getattr(cfg, "DEMO_PREANNO_CLS_TH", 0.5)
+            C = Y_true.shape[1]
+            thresholds = np.full(C, thr, dtype=float)
+
+            if C >= 12:
+                cls12_thr = getattr(cfg, "CLS12_THRESHOLD", 0.03)
+                cls3_thr = getattr(cfg, "CLS12_THRESHOLD", 0.03)
+                cls4_thr = getattr(cfg, "CLS12_THRESHOLD", 0.03)
+                thresholds[11] = cls12_thr
+                thresholds[2] = cls3_thr
+                thresholds[3] = cls4_thr
+            Y_pred = (Y_prob >= thresholds[None, :]).astype(np.int32)
+
+            prec, rec, f1, support = precision_recall_fscore_support(
+                Y_true, Y_pred, average=None, zero_division=0
+            )
+            if C >= 12:
+                pos_cnt = int(Y_pred[:, 11].sum())
+                gt_cnt = int(Y_true[:, 11].sum())
+                logger.info(f"class_12 positives after thresholding: pred={pos_cnt}, gt={gt_cnt}")
+
+            acc = []
+            C = Y_true.shape[1]
+            for c in range(C):
+                acc.append(accuracy_score(Y_true[:, c], Y_pred[:, c]))
+            acc = np.array(acc)
+
+            class_names = None
+            if hasattr(cfg, "DEMO") and hasattr(cfg.DEMO, "LABEL_FILE_PATH") and os.path.isfile(cfg.DEMO.LABEL_FILE_PATH):
+                with open(cfg.DEMO.LABEL_FILE_PATH, "r") as f:
+                    names = [x.strip() for x in f.readlines() if x.strip()]
+                if len(names) == C:
+                    class_names = names
+            if class_names is None:
+                class_names = [str(i+1) for i in range(C)]  # 1-based
+
+            df = pd.DataFrame({
+                "class": class_names,
+                "accuracy": acc,
+                "precision": prec,
+                "recall": rec,
+                "f1": f1,
+                "support": support
+            })
+
+            out_csv = os.path.join(cfg.OUTPUT_DIR, "per_class_metrics.csv")
+            if (not cfg.NUM_GPUS) or du.is_root_proc():
+                df.to_csv(out_csv, index=False)
+                logger.info("Saved per-class metrics to {}".format(out_csv))
+        else:
+            logger.warn("No batches accumulated for per-class metrics (y_true_all is empty).")
+    except Exception as e:
+        logger.exception("Failed to compute per-class metrics: %s", e)
+
+    #==========================***************====================================
+
     return test_meter,total_time
 
 
@@ -216,20 +294,13 @@ def test(cfg):
                 model.init_knn_labels(train_loader)
 
         cu.load_test_checkpoint(cfg, model)
-        use_detr_pretrian = True
-        if use_detr_pretrian:
 
-            checkpoint = torch.load('/media/zhong/1.0T/CVPR24/LW-DETR/output/$model_name/checkpoint_best_ema.pth',
-                                    map_location='cpu')
-            model.load_state_dict(checkpoint['model'], strict=False)
-        # start_epoch = checkpoint_epoch + 1
-        start_epoch = 0
         # Create video testing loaders.
         start_time = timeit.default_timer()
         test_ava_loader, test_ava_datsset = loader.construct_loader(cfg, "test")
         end_time = timeit.default_timer()
         dataset_time = end_time - start_time
-        test_coco_dataset = build_dataset(image_set='val', args=cfg)
+        test_coco_dataset = build_dataset(image_set='test', args=cfg)
         combined_dataset_test = CombinedDataset(test_ava_datsset, test_coco_dataset)
         combined_loader_test = DataLoader(
             combined_dataset_test,

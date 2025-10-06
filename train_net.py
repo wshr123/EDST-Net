@@ -17,7 +17,7 @@ import torch
 from fvcore.nn.precise_bn import get_bn_modules, update_bn_stats
 from core.dataset import loader
 from core.dataset.mixup import MixUp
-# from core.model import build_model
+from slowfast.models import build_model
 from core.model.contrastive import (
     contrastive_forward,
     contrastive_parameter_surgery,
@@ -673,6 +673,12 @@ def train(cfg):
         start_epoch = checkpoint_epoch + 1
     else:
         start_epoch = 0
+    use_detr_pretrian = True
+    if use_detr_pretrian:
+        checkpoint = torch.load(cfg.TRAIN.CHECKPOINT_LWDETR,
+                                map_location='cpu')
+        model.load_state_dict(checkpoint['model'], strict=False)
+    start_epoch = 0
     # Create the video train and val loaders.
     ava_train_loader, ava_train_dataset = loader.construct_loader(cfg, "train")
     ava_val_loader, ava_val_dataset = loader.construct_loader(cfg, "val")
@@ -832,11 +838,12 @@ def train(cfg):
                 print(f"Params: {params:,}, GFLOPs: {gflops:.4f}")
                 break
         else:
-                flops, params = 0.0, 0.0
+            flops, params = 0.0, 0.0
         # Shuffle the dataset.
         loader.shuffle_dataset(loader_train, cur_epoch)
         if hasattr(loader_train.dataset, "_set_epoch_num"):
             loader_train.dataset._set_epoch_num(cur_epoch)
+
         # eval_epoch(loader_val, model, val_meter, start_epoch, cfg, loader_train, postprocesser, writer)#todo do eval test
         # Train for one epoch.
         epoch_timer.epoch_tic()
@@ -919,6 +926,8 @@ def train(cfg):
         eval_epoch(loader_val, model, val_meter, start_epoch, cfg, loader_train, postprocesser, writer)
     if writer is not None:
         writer.close()
+    params = 0.0
+    flops = 0.0
     result_string = (
         "_p{:.2f}_f{:.2f} _t{:.2f}_m{:.2f} _a{:.2f} Top5 Acc: {:.2f} MEM: {:.2f} f: {:.4f}"
         "".format(

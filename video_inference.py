@@ -8,7 +8,7 @@ from core.visualization.ava_demo_precomputed_boxes import (
     AVAVisualizerWithPrecomputedBox,
 )
 from core.visualization.demo_loader import ThreadVideoManager, VideoManager
-from core.visualization.predictor import ActionPredictor
+from core.visualization.predictor_beifen import ActionPredictor
 from core.visualization.video_visualizer import VideoVisualizer
 import timeit
 logger = logging.get_logger(__name__)
@@ -95,7 +95,7 @@ def run_demo(cfg, frame_provider):
     print("total frames",total_frames)
     print("total model process time",total_time)
     print("total video inference time", total_video_inference_time)
-    print("fps",fps)
+    print("vps",fps)
 
 def demo(cfg):
     """
