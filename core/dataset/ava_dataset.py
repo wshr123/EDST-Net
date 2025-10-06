@@ -2,7 +2,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 
 import logging
-
+import cv2
 import numpy as np
 import torch
 
@@ -46,8 +46,10 @@ class Ava(torch.utils.data.Dataset):
         else:
             self._crop_size = cfg.DATA.TEST_CROP_SIZE
             self._test_force_flip = cfg.AVA.TEST_FORCE_FLIP
-
         self._load_data(cfg)
+
+
+
 
     def _load_data(self, cfg):
         """
@@ -124,6 +126,7 @@ class Ava(torch.utils.data.Dataset):
             imgs (tensor): list of preprocessed images.
             boxes (ndarray): preprocessed boxes.
         """
+        import numpy as np
 
         height, width, _ = imgs[0].shape
 
@@ -153,29 +156,113 @@ class Ava(torch.utils.data.Dataset):
                     0.5, imgs, order="HWC", boxes=boxes
                 )
         elif self._split == "val":
-            # Short side to test_scale. Non-local and STRG uses 256.
             imgs = [cv2_transform.scale(self._crop_size, img) for img in imgs]
             boxes = [
                 cv2_transform.scale_boxes(self._crop_size, boxes[0], height, width)
             ]
-            imgs, boxes = cv2_transform.spatial_shift_crop_list(
-                self._crop_size, imgs, 1, boxes=boxes
-            )
 
             if self._test_force_flip:
                 imgs, boxes = cv2_transform.horizontal_flip_list(
                     1, imgs, order="HWC", boxes=boxes
                 )
+
         elif self._split == "test":
+
+            # ====== different ligth sim======
+            # import os, cv2, numpy as np
+            #
+            # def _thirds_mode(idx_in_video: int, total: int) -> str:
+            #     t1 = total // 3
+            #     t2 = (2 * total) // 3
+            #     if idx_in_video < t1:
+            #         return "dark"
+            #     elif idx_in_video < t2:
+            #         return "none"
+            #     else:
+            #         return "bright"
+            #
+            # def _apply_exposure_L_add_uint8(bgr_u8: np.ndarray, mode: str) -> np.ndarray:
+            #     """Lab 空间只改 L 通道做亮度平移，避免对比度变化。输入/输出: uint8 HWC BGR。"""
+            #     lab = cv2.cvtColor(bgr_u8, cv2.COLOR_BGR2LAB)
+            #     L = lab[:, :, 0].astype(np.int16)
+            #     if mode == "dark":
+            #         delta = -40  # 想更明显：-50/-60；想温和：-25/-30
+            #     elif mode == "bright":
+            #         delta = +40  # 想更明显：+50/+60；想温和：+25/+30
+            #     else:
+            #         delta = 0
+            #     L = np.clip(L + delta, 0, 255).astype(np.uint8)
+            #     lab[:, :, 0] = L
+            #     return cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+            #
+            # # 1) 基于路径确定本 clip 的每帧属于视频的哪一段
+            # if not hasattr(self, "_save_root_hr"):
+            #     self._save_root_hr = "./debug_exposure/by_path_hr"
+            #     os.makedirs(self._save_root_hr, exist_ok=True)
+            # if not hasattr(self, "_by_path_idx"):
+            #     self._by_path_idx = {}  # {video_idx: {abs_path: index_in_video}}
+            #
+            # vid = getattr(self, "_current_video_idx", None)
+            # if vid is not None:
+            #     all_paths = self._image_paths[vid]  # 整个视频的所有帧路径（有序）
+            #     total_frames_video = len(all_paths)
+            #     if vid not in self._by_path_idx:  # 构建 path->index 一次
+            #         self._by_path_idx[vid] = {p: i for i, p in enumerate(all_paths)}
+            #
+            #     # 重建与 __getitem__ 一致的帧路径序列
+            #     seq = utils.get_sequence(
+            #         self._current_center_idx,
+            #         self._seq_len // 2,
+            #         self._sample_rate,
+            #         num_frames=total_frames_video,
+            #     )
+            #     image_paths_clip = [all_paths[f - 1] for f in seq]
+            #
+            #     # 输出：按视频文件夹名
+            #     if len(image_paths_clip) > 0:
+            #         video_folder_name = os.path.basename(os.path.dirname(image_paths_clip[0]))
+            #         out_dir = os.path.join(self._save_root_hr, video_folder_name)
+            #         os.makedirs(out_dir, exist_ok=True)
+            #
+            #     # 2) 对“原分辨率”imgs逐帧做曝光 + 保存；并把处理后的图替换回 imgs（喂给模型）
+            #     processed = []
+            #     for im_u8, abs_path in zip(imgs, image_paths_clip):
+            #         idx_in_video = self._by_path_idx[vid].get(abs_path, None)
+            #         # 保障类型/布局：uint8 HWC BGR
+            #         if im_u8.dtype != np.uint8:
+            #             im_u8 = np.clip(im_u8, 0, 255).astype(np.uint8)
+            #         if im_u8.ndim == 3 and im_u8.shape[0] in (1, 3) and im_u8.shape[2] not in (1, 3):
+            #             im_u8 = np.transpose(im_u8, (1, 2, 0))
+            #
+            #         if idx_in_video is None:
+            #             im_proc = im_u8  # 找不到索引就不改，直接用原图
+            #         else:
+            #             mode = _thirds_mode(idx_in_video, total_frames_video)
+            #             im_proc = _apply_exposure_L_add_uint8(im_u8, mode)
+            #
+            #         # 保存处理后的原分辨率图（同名会覆盖：如果你希望保留多份可在文件名加后缀）
+            #         if len(image_paths_clip) > 0:
+            #             save_path = os.path.join(out_dir, os.path.basename(abs_path))
+            #             try:
+            #                 cv2.imwrite(save_path, im_proc)
+            #             except Exception as e:
+            #                 print(f"[exposure-save warn] fail to write {save_path}: {e}")
+            #
+            #         processed.append(im_proc)
+            #
+            #     imgs = processed  # ← 关键：处理后的图继续进入下面的缩放/裁剪/标准化流程
+
+
             imgs = [cv2_transform.scale(self._crop_size, img) for img in imgs]
-            boxes = [
-                cv2_transform.scale_boxes(self._crop_size, boxes[0], height, width)
-            ]
+            boxes = [cv2_transform.scale_boxes(self._crop_size, boxes[0], height, width)]
 
             if self._test_force_flip:
                 imgs, boxes = cv2_transform.horizontal_flip_list(
                     1, imgs, order="HWC", boxes=boxes
                 )
+
+
+
         else:
             raise NotImplementedError("Unsupported split mode {}".format(self._split))
 
@@ -296,7 +383,6 @@ class Ava(torch.utils.data.Dataset):
                 max_size=self._crop_size,
                 boxes=boxes,
             )
-
             if self._test_force_flip:
                 imgs, boxes = transform.horizontal_flip(1, imgs, boxes=boxes)
         else:
@@ -335,6 +421,68 @@ class Ava(torch.utils.data.Dataset):
 
         return imgs, boxes
 
+    def _to_uint8_hwc(self, img: np.ndarray) -> np.ndarray:
+        """确保输入是连续的 uint8 HWC（BGR）。支持 float[0,1] 或 CHW 转换。"""
+        arr = np.asarray(img)
+        # 如果是 CHW（C,H,W）且 C 在前，把它转成 HWC
+        if arr.ndim == 3 and arr.shape[0] in (1, 3) and arr.shape[2] not in (1, 3):
+            arr = np.transpose(arr, (1, 2, 0))  # CHW -> HWC
+
+        # 若是 float 且在 [0,1]，转成 uint8
+        if arr.dtype != np.uint8:
+            if np.issubdtype(arr.dtype, np.floating):
+                # 先clip再量化，避免溢出
+                arr = np.clip(arr, 0.0, 1.0) * 255.0
+                arr = np.round(arr).astype(np.uint8)
+            else:
+                # 其它整型/类型，直接clip到[0,255]再转
+                arr = np.clip(arr, 0, 255).astype(np.uint8)
+
+        # 保证连续
+        return np.ascontiguousarray(arr)
+
+    def _apply_gamma_uint8(self, img, gamma: float) -> np.ndarray:
+        img_u8 = self._to_uint8_hwc(img)
+        if abs(gamma - 1.0) < 1e-6:
+            return img_u8
+        inv = 1.0 / max(gamma, 1e-6)
+        # 单通道 LUT，长度 256，uint8，连续
+        lut = np.array([(i / 255.0) ** inv * 255.0 for i in range(256)], dtype=np.uint8)
+        out = cv2.LUT(img_u8, lut)  # (H,W,C) 每个通道都会应用 LUT
+        return out
+
+    def adjust_exposure_uint8(self,img_bgr: np.ndarray, mode: str,
+                              dark_cfg=None, bright_cfg=None) -> np.ndarray:
+        """
+        img_bgr: HWC, BGR（容错：若不是，会自动转成 HWC uint8）
+        mode: "dark" | "none" | "bright"
+        """
+        img_bgr = self._to_uint8_hwc(img_bgr)
+        if mode == "none":
+            return img_bgr
+
+        if mode == "dark":
+            gamma = (dark_cfg or {}).get("gamma", 1.05)
+            alpha = (dark_cfg or {}).get("alpha", 0.85)
+        else:  # "bright"
+            gamma = (bright_cfg or {}).get("gamma", 0.95)
+            alpha = (bright_cfg or {}).get("alpha", 1.15)
+
+        out = self._apply_gamma_uint8(img_bgr, gamma)
+        # 线性增益（alpha>1 亮，<1 暗）；保持 uint8
+        out = cv2.convertScaleAbs(out, alpha=alpha, beta=0)
+        return out
+
+    def thirds_mode(self, center_idx: int, total_frames: int) -> str:
+        t1 = total_frames // 3
+        t2 = (2 * total_frames) // 3
+        if center_idx < t1:
+            return "dark"
+        elif center_idx < t2:
+            return "none"
+        else:
+            return "bright"
+
     def __getitem__(self, idx):
         """
         Generate corresponding clips, boxes, labels and metadata for given idx.
@@ -358,6 +506,11 @@ class Ava(torch.utils.data.Dataset):
                 idx, short_cycle_idx = idx
 
         video_idx, sec_idx, sec, center_idx = self._keyframe_indices[idx]
+        #todo  save time information
+        self._current_video_idx = video_idx
+        self._current_center_idx = center_idx
+        self._current_total_frames = len(self._image_paths[video_idx])
+
         # Get the frame idxs for current clip.
         seq = utils.get_sequence(
             center_idx,
