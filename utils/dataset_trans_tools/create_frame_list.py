@@ -1,9 +1,9 @@
 import pandas as pd
 
 #todo:need to modify frame number for each videos
-input_file = '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result/train.csv'  # 替换为你的 CSV 文件路径
+input_file = '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result/train.csv' 
 
-output_file = '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result/train_frame.csv'  # 替换为你想保存的新 CSV 文件名
+output_file = '/media/zhong/1.0T/zhong_work/zhong_detr/inference_result/train_frame.csv'  
 
 df = pd.read_csv(input_file, header=None)
 
@@ -13,7 +13,6 @@ unique_videos = df['video_name'].unique()
 
 output_df = pd.DataFrame()
 
-# 为每个视频生成 450 个帧
 for idx, video in enumerate(unique_videos):
     temp_df = pd.DataFrame({
         'original_video_id': [video] * 300,
@@ -25,7 +24,6 @@ for idx, video in enumerate(unique_videos):
 
     output_df = pd.concat([output_df, temp_df], ignore_index=True)
 
-# 使用 + 操作符直接拼接列
 # output_df['merged'] = (
 #     output_df['original_video_id'].astype(str) + ' ' +
 #     output_df['video_id'].astype(str) + ' ' +
