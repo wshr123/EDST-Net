@@ -84,8 +84,15 @@ Then update in your config file:
 ```yaml
 CHECKPOINT_FILE_PATH: "path/to/your/x3d_l.pyth"
 ```
+Please print these code in your terminal before you train/test the model:
 
----
+export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast:$PYTHONPATH
+export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/slowfast:$PYTHONPATH
+export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/Detectron2:$PYTHONPATH
+
+
+You need to modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
+And modify core/dataset/coco.py line175 PATH  ; line 66 path root_dir
 
 ## 4️⃣ Inference Demo with Pretrained Model
 
