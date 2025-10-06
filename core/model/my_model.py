@@ -163,7 +163,7 @@ class LWDETR(nn.Module):
         # for enc_out in encoder_out_feat:
         #     encoder_out_feat[i] = self.adaptive_pool(enc_out)
         #     i += 1
-        downsampling_type = " "
+        downsampling_type = ""
         #use downsampling and conv to align feature map
         if downsampling_type == 'use_downsampling_conv':
             s3_fuse = F.interpolate(encoder_out_feat[3], size=(45, 45), mode='bilinear', align_corners=False)
@@ -292,21 +292,21 @@ class LWDETR(nn.Module):
             boxes, width, heigth = ava_scale_boxes(self.train_crop_size, boxes, 1080, 1920)
             boxes = adjust_boxes_for_crop(self.train_crop_size, heigth, width, 1, boxes)
             boxes = clip_boxes_to_image_tensor(boxes, self.train_crop_size, self.train_crop_size)
-        elif mode == "test":
+        else:
             boxes, width, heigth = ava_scale_boxes(self.test_crop_size, boxes, 1080, 1920)
-        else:   #val
-            boxes, width, heigth = ava_scale_boxes(self.test_crop_size, boxes, 1080, 1920)
-            boxes = adjust_boxes_for_crop(self.test_crop_size, heigth, width, 1, boxes)
-            boxes = clip_boxes_to_image_tensor(boxes, self.test_crop_size, self.test_crop_size)
+        # else:   #val
+        #     # print(boxes)
+        #     boxes, width, heigth = ava_scale_boxes(self.test_crop_size, boxes, 1080, 1920)
+        #     boxes = adjust_boxes_for_crop(self.test_crop_size, heigth, width, 1, boxes)
+        #     boxes = clip_boxes_to_image_tensor(boxes, self.test_crop_size, self.test_crop_size)
         # 455,256 -> 256，256 bounding box to the middle
-        if mode == "test":
+        if mode == "test" or "val":
             boxes = clip_boxes_to_image_tensor(boxes, heigth, width)
             return boxes
         # print(boxes)
         # print(bboxes)
         # --------------------------------#
         return boxes
-
 
 
     def forward_export(self, tensors):

@@ -209,7 +209,7 @@ class X3D(nn.Module):
             if self.training:
                 x = self.head(x, bboxes)
             else:
-                use_matcher = True
+                use_matcher = False
                 if use_matcher:
                     x = self.head(x, matched_boxes)
                 else:
