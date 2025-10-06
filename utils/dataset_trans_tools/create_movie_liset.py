@@ -18,7 +18,6 @@ def main():
         if os.path.isdir(p):
             names.append(name)
 
-    # 数字优先排序
     def keyfn(x):
         return (0, int(x)) if x.isdigit() else (1, x)
 
