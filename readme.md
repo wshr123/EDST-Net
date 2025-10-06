@@ -49,7 +49,11 @@ to prepare the **AVA-format datasets** used for training and evaluation.
 
 > 🛠️ This section provides a detailed guide for building annotations matching the EDST-Net input format.
 
-As an alternative, you can directly download our prepared annotations (links will be available soon).
+As an alternative, you can directly download our prepared annotations：
+
+The CVB dataset annotation can be download here [cvb annotations](https://drive.google.com/drive/folders/1WThk3A8MCdO7JeB1xLiavvZ32M-cA8i5?usp=drive_link)
+
+The CVB-i dataset annotation can be download here[cvb-i annotations](https://drive.google.com/drive/folders/1Qy8YROQUA9Thosa3RJBxUwke5kPjU86o?usp=drive_link)
 
 ```text
 ===========  Under Construction  ===========
