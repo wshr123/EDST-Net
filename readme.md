@@ -55,14 +55,6 @@ The CVB dataset annotation can be download here [cvb annotations](https://drive.
 
 The CVB-i dataset annotation can be download here[cvb-i annotations](https://drive.google.com/drive/folders/1Qy8YROQUA9Thosa3RJBxUwke5kPjU86o?usp=drive_link)
 
-```text
-===========  Under Construction  ===========
-✅ The full step-by-step introduction will be available before **Oct. 7**
-✅ CVB and CVB-I annotation files will be uploaded to this repository
-============================================
-```
-
----
 
 ## 3️⃣ Model Preparation
 
