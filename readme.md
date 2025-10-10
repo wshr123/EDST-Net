@@ -123,6 +123,8 @@ To evaluate or test the model:
 TEST.ENABLE: True
 ```
 
+delete core/utils/checkpoints.py line 290: ```checkpoint["model_state"] = {"temporal_backbone." + k: v for k, v in checkpoint["model_state"].items()}  # todo```
+
 Then run:
 
 ```bash
