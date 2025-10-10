@@ -8,7 +8,11 @@ The CVB-i Dataset can be download from[CVB-i](https://pan.baidu.com/s/1ikt4gIGKi
 
 
 
-Download and extract frames with the following structure:
+Download and use 
+
+utils/dataset_trans_tools/extract_rgb_frames_ffmpeg.sh
+
+to extract frames with the following structure:
 
 ```
 ava
