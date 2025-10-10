@@ -182,20 +182,18 @@ class Ava(torch.utils.data.Dataset):
             #         return "bright"
             #
             # def _apply_exposure_L_add_uint8(bgr_u8: np.ndarray, mode: str) -> np.ndarray:
-            #     """Lab 空间只改 L 通道做亮度平移，避免对比度变化。输入/输出: uint8 HWC BGR。"""
             #     lab = cv2.cvtColor(bgr_u8, cv2.COLOR_BGR2LAB)
             #     L = lab[:, :, 0].astype(np.int16)
             #     if mode == "dark":
-            #         delta = -40  # 想更明显：-50/-60；想温和：-25/-30
+            #         delta = -40  
             #     elif mode == "bright":
-            #         delta = +40  # 想更明显：+50/+60；想温和：+25/+30
+            #         delta = +40  
             #     else:
             #         delta = 0
             #     L = np.clip(L + delta, 0, 255).astype(np.uint8)
             #     lab[:, :, 0] = L
             #     return cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
             #
-            # # 1) 基于路径确定本 clip 的每帧属于视频的哪一段
             # if not hasattr(self, "_save_root_hr"):
             #     self._save_root_hr = "./debug_exposure/by_path_hr"
             #     os.makedirs(self._save_root_hr, exist_ok=True)
@@ -204,12 +202,10 @@ class Ava(torch.utils.data.Dataset):
             #
             # vid = getattr(self, "_current_video_idx", None)
             # if vid is not None:
-            #     all_paths = self._image_paths[vid]  # 整个视频的所有帧路径（有序）
+            #     all_paths = self._image_paths[vid]  
             #     total_frames_video = len(all_paths)
-            #     if vid not in self._by_path_idx:  # 构建 path->index 一次
+            #     if vid not in self._by_path_idx:  
             #         self._by_path_idx[vid] = {p: i for i, p in enumerate(all_paths)}
-            #
-            #     # 重建与 __getitem__ 一致的帧路径序列
             #     seq = utils.get_sequence(
             #         self._current_center_idx,
             #         self._seq_len // 2,
@@ -218,29 +214,25 @@ class Ava(torch.utils.data.Dataset):
             #     )
             #     image_paths_clip = [all_paths[f - 1] for f in seq]
             #
-            #     # 输出：按视频文件夹名
             #     if len(image_paths_clip) > 0:
             #         video_folder_name = os.path.basename(os.path.dirname(image_paths_clip[0]))
             #         out_dir = os.path.join(self._save_root_hr, video_folder_name)
             #         os.makedirs(out_dir, exist_ok=True)
             #
-            #     # 2) 对“原分辨率”imgs逐帧做曝光 + 保存；并把处理后的图替换回 imgs（喂给模型）
             #     processed = []
             #     for im_u8, abs_path in zip(imgs, image_paths_clip):
             #         idx_in_video = self._by_path_idx[vid].get(abs_path, None)
-            #         # 保障类型/布局：uint8 HWC BGR
             #         if im_u8.dtype != np.uint8:
             #             im_u8 = np.clip(im_u8, 0, 255).astype(np.uint8)
             #         if im_u8.ndim == 3 and im_u8.shape[0] in (1, 3) and im_u8.shape[2] not in (1, 3):
             #             im_u8 = np.transpose(im_u8, (1, 2, 0))
             #
             #         if idx_in_video is None:
-            #             im_proc = im_u8  # 找不到索引就不改，直接用原图
+            #             im_proc = im_u8  
             #         else:
             #             mode = _thirds_mode(idx_in_video, total_frames_video)
             #             im_proc = _apply_exposure_L_add_uint8(im_u8, mode)
             #
-            #         # 保存处理后的原分辨率图（同名会覆盖：如果你希望保留多份可在文件名加后缀）
             #         if len(image_paths_clip) > 0:
             #             save_path = os.path.join(out_dir, os.path.basename(abs_path))
             #             try:
@@ -250,7 +242,7 @@ class Ava(torch.utils.data.Dataset):
             #
             #         processed.append(im_proc)
             #
-            #     imgs = processed  # ← 关键：处理后的图继续进入下面的缩放/裁剪/标准化流程
+            #     imgs = processed  
 
 
             imgs = [cv2_transform.scale(self._crop_size, img) for img in imgs]
