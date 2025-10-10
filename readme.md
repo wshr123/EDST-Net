@@ -12,6 +12,8 @@ Source code of
 **Notice:**  
 We have updated **Preparation** on **Oct. 3** 🛠️
 
+We add different light simulation in line 171 to line 250 in ava_dataset.py
+
 ---
 
 ## 📋 Table of Contents
