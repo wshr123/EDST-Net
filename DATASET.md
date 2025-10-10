@@ -8,7 +8,7 @@ The CVB-i Dataset can be download from[CVB-i](https://pan.baidu.com/s/1ikt4gIGKi
 
 
 
-Download the ava dataset with the following structure:
+Download and extract frames with the following structure:
 
 ```
 ava
@@ -21,13 +21,7 @@ ava
 |     |_ [video name 1]_000001.jpg
 |     |_ [video name 1]_000002.jpg
 |     |_ ...
-|_ frame_lists
-|  |_ train.csv
-|  |_ val.csv
-|_ annotations
-   |_ [official AVA annotation files]
-   |_ ava_train_predicted_boxes.csv
-   |_ ava_val_predicted_boxes.csv
+
 ```
 
 
