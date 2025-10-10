@@ -2,7 +2,7 @@
 
 The CVB Dataset can be download from [CVB](https://data.csiro.au/collection/csiro%3A58916v1)
 
-The CVB-i Dataset will be upload before Oct.11
+The CVB-i Dataset can be download from[CVB-i](https://pan.baidu.com/s/1ikt4gIGKi1jhKh9xckmQjw) and the code is mbav.
 
 ## AVA format
 
