@@ -510,8 +510,8 @@ def load_checkpoint(
                 pre_train_dict_match, strict=False
             )
 
-            print("missing keys: {}".format(missing_keys))
-            print("unexpected keys: {}".format(unexpected_keys))
+            # print("missing keys: {}".format(missing_keys))
+            # print("unexpected keys: {}".format(unexpected_keys))
             epoch = -1
 
             # Load the optimizer state (commonly not done when fine-tuning)
