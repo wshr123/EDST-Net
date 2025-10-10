@@ -142,6 +142,7 @@ python run_net.py --cfg your/file_path/edst.yaml
 
 > 💡 You can modify batch size, learning rate, and training epochs in the YAML config file as needed.
 
+> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
 ---
 
 ## 6️⃣ Test
@@ -161,6 +162,8 @@ python run_net.py --cfg your/file_path/edst.yaml
 For pretrained checkpoints, please refer to  
 👉 [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
 
+> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
+> 
 ---
 
 ## 7️⃣ References
