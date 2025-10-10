@@ -71,7 +71,7 @@ CHECKPOINT_LWDETR: "path/to/your/lw_detr_checkpoint.pth"
 
 If you prefer to train LW-DETR yourself, refer to the official repo:  
 👉 [LW-DETR GitHub Repository](https://github.com/Atten4Vis/LW-DETR)
-
+todo:upload cvb-i lwdetr pretrain model
 ---
 
 We use **Kinetics-400 pretrained weights** for our temporal backbone.  
@@ -102,7 +102,7 @@ We provide an **inference demo** for visualizing custom input videos using pretr
 
 1. **Download pretrained weights:**  
    [EDST-Net Pretrained Models](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
-
+   todo:upload cvb-i pretrained model
 2. **Set the config flags:**
    ```yaml
    DEMO.ENABLE: True
