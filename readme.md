@@ -94,7 +94,47 @@ export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/Detectron2:$PYTHONPATH
 You need to modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
 And modify core/dataset/coco.py line175 PATH  ; line 66 path root_dir
 
-## 4️⃣ Inference Demo with Pretrained Model
+## 4️⃣ Train
+
+To start training from scratch, enable training in your config file:
+
+```yaml
+TRAIN.ENABLE: True
+```
+
+Then run:
+
+```bash
+python run_net.py --cfg your/file_path/edst.yaml
+```
+
+> 💡 You can modify batch size, learning rate, and training epochs in the YAML config file as needed.
+
+> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
+---
+
+## 5️⃣ Test
+
+To evaluate or test the model:
+
+```yaml
+TEST.ENABLE: True
+```
+
+Then run:
+
+```bash
+python run_net.py --cfg your/file_path/edst.yaml
+```
+
+For pretrained checkpoints, please refer to  
+👉 [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
+
+> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
+> 
+---
+
+## 6️⃣ Inference Demo with Pretrained Model
 
 We provide an **inference demo** for visualizing custom input videos using pretrained weights.
 
@@ -124,46 +164,6 @@ We provide an **inference demo** for visualizing custom input videos using pretr
 
 The model will output a visualization video with bounding boxes and action labels for each detected cattle behavior.
 
----
-
-## 5️⃣ Train
-
-To start training from scratch, enable training in your config file:
-
-```yaml
-TRAIN.ENABLE: True
-```
-
-Then run:
-
-```bash
-python run_net.py --cfg your/file_path/edst.yaml
-```
-
-> 💡 You can modify batch size, learning rate, and training epochs in the YAML config file as needed.
-
-> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
----
-
-## 6️⃣ Test
-
-To evaluate or test the model:
-
-```yaml
-TEST.ENABLE: True
-```
-
-Then run:
-
-```bash
-python run_net.py --cfg your/file_path/edst.yaml
-```
-
-For pretrained checkpoints, please refer to  
-👉 [Inference Demo with Pretrained Model](#4-inference-demo-with-pretrained-model)
-
-> 💡 Modify ava_helper line 14 AVA_VALID_FRAMES = range(1, 16) to range(1, 11) if you use cvb-i dataset.
-> 
 ---
 
 ## 7️⃣ References
