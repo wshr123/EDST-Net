@@ -66,7 +66,7 @@ Please download the pretrained weights and place them in the `weights/` folder.
 Then modify the configuration file:
 
 ```yaml
-CHECKPOINT_LWDETR: "path/to/your/lw_detr_checkpoint.pth"
+CHECKPOINT_LWDETR: "path/to/your/lwdetr.pth"
 ```
 
 If you prefer to train LW-DETR yourself, refer to the official repo:  
