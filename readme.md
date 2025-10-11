@@ -63,8 +63,8 @@ The CVB-i dataset annotation can be download here[cvb-i annotations](https://dri
 We pretrain the **LW-DETR** on the CVB dataset.  
 Please download the pretrained weights and place them in the `weights/` folder.
 
-🔗 [LW-DETR Pretrained Model](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing)
-
+🔗 [LW-DETR Pretrained Model for CVB](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing)
+🔗 [LW-DETR Pretrained Model for CVB-i](https://drive.google.com/file/d/15xPw8cuJhYERESRIl_eIaBx4vcc8u6FG/view?usp=drive_link)
 Then modify the configuration file:
 
 ```yaml
@@ -145,8 +145,8 @@ We provide an **inference demo** for visualizing custom input videos using pretr
 ### ▶️ Steps:
 
 1. **Download pretrained weights:**  
-   [EDST-Net Pretrained Models](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
-   todo:upload cvb-i pretrained model
+   [EDST-Net Pretrained Models for CVB](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
+   [EDST-Net Pretrained Models for CVB-i](https://drive.google.com/file/d/1LcwW7D1J7E8RfpFY7xx829sdMUYwgKz0/view?usp=drive_link)
 2. **Set the config flags:**
    ```yaml
    DEMO.ENABLE: True
