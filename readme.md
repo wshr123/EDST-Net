@@ -64,8 +64,11 @@ We pretrain the **LW-DETR** on the CVB dataset.
 Please download the pretrained weights and place them in the `weights/` folder.
 
 🔗 [LW-DETR Pretrained Model for CVB](https://drive.google.com/file/d/1VAyJ9jrJex7s_cmNKvrtINqMznVG9Xit/view?usp=sharing)
+
 🔗 [LW-DETR Pretrained Model for CVB-i](https://drive.google.com/file/d/15xPw8cuJhYERESRIl_eIaBx4vcc8u6FG/view?usp=drive_link)
+
 Then modify the configuration file:
+
 
 ```yaml
 CHECKPOINT_LWDETR: "path/to/your/lwdetr.pth"
@@ -146,22 +149,24 @@ We provide an **inference demo** for visualizing custom input videos using pretr
 
 1. **Download pretrained weights:**  
    [EDST-Net Pretrained Models for CVB](https://drive.google.com/drive/folders/1EYcWb0f4WfnMKLIAGcNzNOmwZjogwjNb?usp=drive_link)
+   
    [EDST-Net Pretrained Models for CVB-i](https://drive.google.com/file/d/1LcwW7D1J7E8RfpFY7xx829sdMUYwgKz0/view?usp=drive_link)
-2. **Set the config flags:**
+   
+3. **Set the config flags:**
    ```yaml
    DEMO.ENABLE: True
    TRAIN.ENABLE: False
    TEST.ENABLE: False
    ```
 
-3. **Modify paths in config:**
+4. **Modify paths in config:**
    ```yaml
    LABEL_FILE_PATH: "path/to/label.json"
    INPUT_VIDEO: "path/to/your_video.mp4"
    OUTPUT_FILE: "path/to/output_demo.mp4"
    ```
 
-4. **Run the demo:**
+5. **Run the demo:**
    ```bash
    python run_net.py --cfg your/file_path/edst.yaml
    ```
