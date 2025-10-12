@@ -92,7 +92,9 @@ CHECKPOINT_FILE_PATH: "path/to/your/x3d_l.pyth"
 Please print these code in your terminal before you train/test the model:
 
 export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast:$PYTHONPATH
+
 export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/slowfast:$PYTHONPATH
+
 export PYTHONPATH=/media/zhong/1.0T/zhong_work/SlowFast/Detectron2:$PYTHONPATH
 
 
