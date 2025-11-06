@@ -14,6 +14,8 @@ We have updated **Preparation** on **Oct. 3** 🛠️
 
 We add different light simulation in line 171 to line 245 in ava_dataset.py
 
+Due to that our paper is being review, the train/test code will be available after our paper accept
+
 ---
 
 ## 📋 Table of Contents
